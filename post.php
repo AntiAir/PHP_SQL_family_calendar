@@ -1,14 +1,14 @@
 <?php
-$memo_member_id = $_POST['memo_member_id'];
-$memo_topic = $_POST['memo_topic'];
-$memo_content = $_POST['memo_content'];
+$post_author = $_POST['post_author'];
+$post_topic = $_POST['post_topic'];
+$post_content = $_POST['post_content'];
 
-// echo $memo_member_id, '<br>';
-// echo $memo_topic, '<br>';
-// echo $memo_content, '<br>';
+// echo $post_author, '<br>';
+// echo $post_topic, '<br>';
+// echo $post_content, '<br>';
 
 // 08-12 檢查空字串
-if($memo_member_id=='' || $memo_topic == '' || $memo_content==''){
+if($post_author=='' || $post_topic == '' || $post_content==''){
 	header("Location: memo_error_msg.php?error_code=1");
 	exit;
 }
@@ -16,31 +16,31 @@ if($memo_member_id=='' || $memo_topic == '' || $memo_content==''){
 $options = array(
 	PDO::ATTR_EMULATE_PREPARES => false, 
 	PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
-$db = new PDO('mysql:host=localhost:3306;dbname=family;charset=utf8',
+$db = new PDO('mysql:host=localhost:3306;dbname=forum;charset=utf8',
 	'root', '1234', $options);
 
-if(!isset($_POST['reply_to_memo_id'])){
+if(!isset($_POST['reply_to_post_id'])){
 	$stmt = $db->prepare(
-		"INSERT INTO memo (memo_member_id, memo_topic, memo_content, memo_type) VALUES
+		"INSERT INTO post (post_author, post_topic, post_content, post_type) VALUES
 			(:pauthor, :ptopic, :pcontent, :ptype)");
 	$stmt->execute(
 		array(
-			':pauthor' => $memo_member_id,
-			':ptopic' => $memo_topic,
-			':pcontent' => $memo_content,
+			':pauthor' => $post_author,
+			':ptopic' => $post_topic,
+			':pcontent' => $post_content,
 			':ptype' => TRUE
 			));
 }else{
 	$stmt = $db->prepare(
-		"INSERT INTO memo (memo_member_id, memo_topic, memo_content, memo_type, reply_to_memo_id) VALUES
+		"INSERT INTO post (post_author, post_topic, post_content, post_type, reply_to_post_id) VALUES
 			(:pauthor, :ptopic, :pcontent, :ptype, :rpid)");
 	$stmt->execute(
 		array(
-			':pauthor' => $memo_member_id,
-			':ptopic' => $memo_topic,
-			':pcontent' => $memo_content,
+			':pauthor' => $post_author,
+			':ptopic' => $post_topic,
+			':pcontent' => $post_content,
 			':ptype' => False,
-			':rpid' => $_POST['reply_to_memo_id']
+			':rpid' => $_POST['reply_to_post_id']
 			));
 }
 

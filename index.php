@@ -1,7 +1,7 @@
 <?php include "header.php"; ?>
 <?php 
 if(isset($_SESSION['id'])){		
-	header("Location: main.php");
+	header("Location: memo.php");
 	exit;
 }
 ?><div class="login-container">

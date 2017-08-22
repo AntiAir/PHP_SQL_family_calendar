@@ -18,6 +18,6 @@ if(!password_verify($password, $result['member_password_hash'])){
 
 $_SESSION['id'] = $result['member_id'];
 
-header("Location: main.php");
+header("Location: memo.php");
 exit();
 ?>

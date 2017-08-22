@@ -1,7 +1,7 @@
 <?php
 
 if( !isset($_GET['error_code']) ){
-	header('Location: index.php');
+	header('Location: memo.php');
 	exit;
 }
 
@@ -11,7 +11,7 @@ if($error_code == 1){
 ?>
 
 請填寫所有欄位!!<br>
-<a href="index.php">返回</a>
+<a href="memo.php">返回</a>
 
 <?php
 }
